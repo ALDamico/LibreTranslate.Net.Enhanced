@@ -3,19 +3,17 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <Authors>Andrea Luciano Damico</Authors>
         <Description>Enhanced translation library using LibreTranslate for .Net</Description>
         <Company />
         <Copyright>Andrea Luciano Damico</Copyright>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/ALDamico/LibreTranslate.Net.Enhanced</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/sigaloid/LibreTranslate.Net</RepositoryUrl>
+        <RepositoryUrl>https://github.com/ALDamico/LibreTranslate.Net.Enhanced</RepositoryUrl>
         <RepositoryType>c#</RepositoryType>
-        <PackageReleaseNotes>Fixed LanguageCode bug
-Handled error responses</PackageReleaseNotes>
-        <Version>1.5.7</Version>
-        <AssemblyVersion>1.5.7</AssemblyVersion>
+        <PackageReleaseNotes>Added new language support</PackageReleaseNotes>
+        <Version>1.6.0</Version>
+        <AssemblyVersion>1.6.0</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
