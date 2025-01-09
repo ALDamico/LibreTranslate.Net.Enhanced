@@ -84,5 +84,12 @@ namespace LibreTranslate.Net.Enhanced.Tests
             Assert.Less(0, detectionResult.Confidence);
             Assert.AreEqual("it", detectionResult.Language);
         }
+
+        [Test]
+        public void TestChineseTraditional()
+        {
+            LanguageCode languageCode = "zt";
+            Assert.AreEqual(LanguageCode.ChineseTraditional, languageCode);
+        }
     }
 }

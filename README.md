@@ -2,12 +2,12 @@
 ## An enhanced fork of LibreTranslate.Net
 <p>
 	<a href="https://www.nuget.org/packages/LibreTranslate.Net.Enhanced">
-	    <img src="https://buildstats.info/nuget/LibreTranslate.Net.Enhanced?v=1.5.7" />
+	    <img src="https://buildstats.info/nuget/LibreTranslate.Net.Enhanced?v=1.6.0" />
 	</a>
 </p>
 
 ### Installation
-`Install-Package LibreTranslate.Net.Enhanced -Version 1.5.7`
+`Install-Package LibreTranslate.Net.Enhanced -Version 1.6.0`
 ### Using
 ```csharp
 using LibreTranslate.Net;
@@ -56,4 +56,36 @@ Korean|`LanguageCode.Korean`
 Portuguese|`LanguageCode.Portuguese`
 Russian|`LanguageCode.Russian`
 Spanish|`LanguageCode.Spanish`
-AutoDetect|`LanguageCode.AutoDetect //This feature is experimental`
+AutoDetect|`LanguageCode.AutoDetect`
+Azeri*|`LanguageCode.Azeri`
+Bulgarian*|`LanguageCode.Bulgarian`
+Bengali*|`LanguageCode.Bengali`
+Catalan*|`LanguageCode.Catalan`
+Greek*|`LanguageCode.Greek`
+Esperanto*|`LanguageCode.Esperanto`
+Estonian*|`LanguageCode.Estonian`
+Persian*|`LanguageCode.Persian`
+Finnish*|`LanguageCode.Finnish`
+Irish*|`LanguageCode.Irish`
+Hebrew*|`LanguageCode.Hebrew`
+Hungarian*|`LanguageCode.Hungarian`
+Indonesian*|`LanguageCode.Indonesian`
+Lithuanian*|`LanguageCode.Lithuanian`
+Latvian*|`LanguageCode.Latvian`
+Malay*|`LanguageCode.Malay`
+Norwegian (Bokmål)*|`LanguageCode.NorwegianBokmal`
+Dutch*|`LanguageCode.Dutch`
+Polish*|`LanguageCode.Polish`
+Romanian*|`LanguageCode.Romanian`
+Slovak*|`LanguageCode.Slovak`
+Slovenian*|`LanguageCode.Slovenian`
+Albanian*|`LanguageCode.Albanian`
+Swedish*|`LanguageCode.Swedish`
+Thai*|`LanguageCode.Thai`
+Tagalog*|`LanguageCode.Tagalog`
+Turkish*|`LanguageCode.Turkish`
+Ukrainian*|`LanguageCode.Ukrainian`
+Urdu*|`LanguageCode.Urdu`
+Chinese (traditional)*|`LanguageCode.ChineseTraditional`
+
+> \* = Added with version 1.6.0
