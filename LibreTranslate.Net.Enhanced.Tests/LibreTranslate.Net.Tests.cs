@@ -91,5 +91,16 @@ namespace LibreTranslate.Net.Enhanced.Tests
             LanguageCode languageCode = "zt";
             Assert.AreEqual(LanguageCode.ChineseTraditional, languageCode);
         }
+
+        [Test]
+        public void TestSupportedLanguages()
+        {
+            var supportedLanguages = _libreTranslate.GetSupportedLanguagesAsync().GetAwaiter().GetResult();
+            foreach (var language in supportedLanguages)
+            {
+                Assert.IsNotNull(language.Targets);
+                Assert.IsNotEmpty(language.Targets);
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@
         <RepositoryUrl>https://github.com/ALDamico/LibreTranslate.Net.Enhanced</RepositoryUrl>
         <RepositoryType>c#</RepositoryType>
         <PackageReleaseNotes>Added new language support</PackageReleaseNotes>
-        <Version>1.6.0</Version>
+        <Version>1.6.4</Version>
         <AssemblyVersion>1.6.0</AssemblyVersion>
     </PropertyGroup>
 

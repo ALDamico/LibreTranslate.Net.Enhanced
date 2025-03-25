@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace LibreTranslate.Net.Enhanced.Models
 {
@@ -17,5 +18,10 @@ namespace LibreTranslate.Net.Enhanced.Models
         /// </summary>
         [JsonProperty("name")]
         public string Name { get; set; }
+        /// <summary>
+        /// Supported target languages (language code only)
+        /// </summary>
+        [JsonProperty("targets")] 
+        public List<string> Targets { get; set; }
     }
 }
