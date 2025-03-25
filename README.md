@@ -7,7 +7,7 @@
 </p>
 
 ### Installation
-`Install-Package LibreTranslate.Net.Enhanced -Version 1.6.0`
+`Install-Package LibreTranslate.Net.Enhanced -Version 1.6.4`
 ### Using
 ```csharp
 using LibreTranslate.Net;
