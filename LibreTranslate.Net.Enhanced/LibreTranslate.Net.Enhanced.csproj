@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>Andrea Luciano Damico</Authors>
         <Description>Enhanced translation library using LibreTranslate for .Net</Description>
@@ -14,6 +13,7 @@
         <PackageReleaseNotes>Added new language support</PackageReleaseNotes>
         <Version>1.6.4</Version>
         <AssemblyVersion>1.6.0</AssemblyVersion>
+        <TargetFrameworks>netstandard2.0;net10.0;net8.0</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
