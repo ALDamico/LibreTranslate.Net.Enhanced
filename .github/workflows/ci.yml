@@ -15,7 +15,7 @@ jobs:
         image: libretranslate/libretranslate:latest
         ports:
           - 5000:5000
-        environment:
+        env:
           - LT_LOAD_ONLY=en,es,it,vi
           - LT_SUGGESTIONS=true
         options: >-
