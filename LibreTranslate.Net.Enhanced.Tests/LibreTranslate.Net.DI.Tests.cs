@@ -1,18 +1,29 @@
-using System.Linq;
+﻿using System.Linq;
 using LibreTranslate.Net.Enhanced.Constants;
 using LibreTranslate.Net.Enhanced.Models;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace LibreTranslate.Net.Enhanced.Tests;
 
-public class Tests
+public class DiTests
 {
     private LibreTranslate _libreTranslate;
+    private ServiceProvider _serviceProvider;
 
     [SetUp]
     public void Setup()
     {
-        _libreTranslate = new LibreTranslate("http://localhost:5000");
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddLibreTranslate(opt => opt.Url = "http://localhost:5000");
+        _serviceProvider = serviceCollection.BuildServiceProvider();
+        _libreTranslate = _serviceProvider.GetRequiredService<LibreTranslate>();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        _serviceProvider?.Dispose();
     }
 
     [Test]
