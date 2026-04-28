@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using LibreTranslate.Net.Enhanced.Constants;
 using LibreTranslate.Net.Enhanced.Models;
@@ -117,5 +118,22 @@ public class Tests
         
         var suggestionResponse =  _libreTranslate.SuggestAsync(suggestion).GetAwaiter().GetResult();
         Assert.True(suggestionResponse);
+    }
+    
+    [Test]
+    public void TestBatchTranslation()
+    {
+        var request = new TranslateBatch()
+        {
+            Source = "it",
+            Target = "en",
+            Text = new List<string>() { "ciao mondo", "mondo" },
+        };
+        var response = _libreTranslate.TranslateAsync(request).GetAwaiter().GetResult();
+        Assert.NotNull(response);
+        Assert.AreEqual(2, response.TranslatedText.Count);
+        Assert.Null(response.Error);
+        Assert.AreEqual("hello world", response.TranslatedText[0]);
+        Assert.AreEqual("world",  response.TranslatedText[1]);
     }
 }

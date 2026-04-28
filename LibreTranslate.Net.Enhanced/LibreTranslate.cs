@@ -83,6 +83,16 @@ namespace LibreTranslate.Net.Enhanced
             return translatedText.Error;
         }
 
+        public async Task<TranslationBatchResponse> TranslateAsync(TranslateBatch batch)
+        {
+            batch.ApiKey = string.IsNullOrWhiteSpace(batch.ApiKey) ? _apiKey : batch.ApiKey;
+            var response = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/translate")
+            {
+                Content = RequestUtils.ToStringContent(batch),
+            });
+            return JsonConvert.DeserializeObject<TranslationBatchResponse>(await response.Content.ReadAsStringAsync());
+        }
+
         public async Task<List<DetectResponse>> DetectAsync(Detect detect)
         {
             var response = await _httpClient.PostAsync("/detect", RequestUtils.ToStringContent(detect));
