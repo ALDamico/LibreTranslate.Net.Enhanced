@@ -7,12 +7,14 @@
         <Company />
         <Copyright>Andrea Luciano Damico</Copyright>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/ALDamico/LibreTranslate.Net.Enhanced</PackageProjectUrl>
         <RepositoryUrl>https://github.com/ALDamico/LibreTranslate.Net.Enhanced</RepositoryUrl>
         <RepositoryType>c#</RepositoryType>
+        <PackageTags>libretranslate libretranslate-net translation machine-translation free-translation open-source dotnet netstandard</PackageTags>
         <PackageReleaseNotes>Added new language support</PackageReleaseNotes>
-        <Version>1.9.5</Version>
-        <AssemblyVersion>1.9.5</AssemblyVersion>
+        <Version>1.9.5.1</Version>
+        <AssemblyVersion>1.9.5.1</AssemblyVersion>
         <TargetFrameworks>netstandard2.0;net10.0;net8.0</TargetFrameworks>
     </PropertyGroup>
 
@@ -24,6 +26,10 @@
 
     <ItemGroup>
       <None Include="..\LICENSE">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
+      <None Include="..\README.md">
         <Pack>True</Pack>
         <PackagePath></PackagePath>
       </None>
