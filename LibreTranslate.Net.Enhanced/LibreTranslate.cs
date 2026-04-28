@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using LibreTranslate.Net.Enhanced.Constants;
 using LibreTranslate.Net.Enhanced.Models;
 using Newtonsoft.Json;
 namespace LibreTranslate.Net.Enhanced
@@ -18,14 +19,22 @@ namespace LibreTranslate.Net.Enhanced
         private readonly HttpClient _httpClient;
 
         private readonly string _apiKey;
+
+        public LibreTranslate(HttpClient httpClient, string apiKey)
+        {
+            _httpClient = httpClient;
+            _apiKey = apiKey;
+        }
+        
         /// <summary>
         /// The default contructor. The default http client base uri points to https://libretranslate.com
         /// </summary>
+        [Obsolete("This constructor is obsolete. Please use the IHttpClientFactory constructor instead.")]
         public LibreTranslate()
         {
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("https://libretranslate.com")
+                BaseAddress = new Uri(LibraryConstants.DefaultUrl)
             };
         }
 
@@ -34,6 +43,7 @@ namespace LibreTranslate.Net.Enhanced
         /// </summary>
         /// <param name="url"></param>
         /// <param name="apiKey"></param>
+        [Obsolete("This constructor is obsolete. Please use the IHttpClientFactory constructor instead.")]
         public LibreTranslate(string url, string apiKey = null)
         {
             _httpClient = new HttpClient()
@@ -132,7 +142,7 @@ namespace LibreTranslate.Net.Enhanced
             multipart.Add(fileContent);
             
             var response = await _httpClient.PostAsync("/translate_file", multipart);
-            var allowedStatusCodes = new int[]
+            var allowedStatusCodes = new[]
             {
                 (int)HttpStatusCode.BadRequest,
                 (int)HttpStatusCode.Forbidden,
@@ -145,7 +155,7 @@ namespace LibreTranslate.Net.Enhanced
             }
 
             var errorMessage = await response.Content.ReadAsStringAsync();
-            return new TranslationResponse()
+            return new TranslationResponse
             {
                 Error = $"Unknown error {errorMessage}"
             };
