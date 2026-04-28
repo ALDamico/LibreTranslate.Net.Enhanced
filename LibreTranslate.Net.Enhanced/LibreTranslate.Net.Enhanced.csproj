@@ -11,8 +11,8 @@
         <RepositoryUrl>https://github.com/ALDamico/LibreTranslate.Net.Enhanced</RepositoryUrl>
         <RepositoryType>c#</RepositoryType>
         <PackageReleaseNotes>Added new language support</PackageReleaseNotes>
-        <Version>1.6.4</Version>
-        <AssemblyVersion>1.6.0</AssemblyVersion>
+        <Version>1.9.5</Version>
+        <AssemblyVersion>1.9.5</AssemblyVersion>
         <TargetFrameworks>netstandard2.0;net10.0;net8.0</TargetFrameworks>
     </PropertyGroup>
 
