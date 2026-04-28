@@ -13,11 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache LibreTranslate models
-        uses: actions/cache@v4
+      - name: Restore LibreTranslate models cache
+        uses: actions/cache/restore@v4
         with:
           path: /tmp/lt-models
           key: libretranslate-models-en-es-it-vi
+
+      - name: Fix lt-models permissions
+        run: |
+          mkdir -p /tmp/lt-models
+          sudo chown -R 1032:1032 /tmp/lt-models
 
       - name: Start LibreTranslate
         run: |
@@ -65,3 +70,10 @@ jobs:
 
       - name: Test (net10.0)
         run: dotnet test --no-build --configuration Release --framework net10.0
+
+      - name: Save LibreTranslate models cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: /tmp/lt-models
+          key: libretranslate-models-en-es-it-vi
