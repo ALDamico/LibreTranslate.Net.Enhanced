@@ -113,4 +113,19 @@ public class DiTests
             Assert.IsNotEmpty(language.Targets);
         }
     }
+
+    [Test]
+    public void TestSuggestion()
+    {
+        var suggestion = new Suggestion()
+        {
+            Source = "it",
+            SourceText = "ciao",
+            Target = "en",
+            TargetText = "hello"
+        };
+        
+        var suggestionResponse =  _libreTranslate.SuggestAsync(suggestion).GetAwaiter().GetResult();
+        Assert.True(suggestionResponse);
+    }
 }
