@@ -1,0 +1,39 @@
+name: Publish to NuGet
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Pack
+        run: dotnet pack LibreTranslate.Net.Enhanced/LibreTranslate.Net.Enhanced.csproj --no-build --configuration Release --output ./nupkg
+
+      - name: Login to NuGet via OIDC
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: ALDamico
+
+      - name: Push to NuGet
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

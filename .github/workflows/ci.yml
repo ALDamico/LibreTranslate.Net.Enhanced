@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      libretranslate:
+        image: libretranslate/libretranslate:latest
+        ports:
+          - 5000:5000
+        options: >-
+          --health-cmd "curl -f http://localhost:5000/languages || exit 1"
+          --health-interval 30s
+          --health-timeout 10s
+          --health-retries 10
+          --health-start-period 120s
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test (net8.0)
+        run: dotnet test --no-build --configuration Release --framework net8.0
+
+      - name: Test (net10.0)
+        run: dotnet test --no-build --configuration Release --framework net10.0
