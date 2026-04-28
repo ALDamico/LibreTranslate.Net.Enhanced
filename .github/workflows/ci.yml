@@ -16,8 +16,8 @@ jobs:
         ports:
           - 5000:5000
         env:
-          - LT_LOAD_ONLY=en,es,it,vi
-          - LT_SUGGESTIONS=true
+          LT_LOAD_ONLY: en,es,it,vi
+          LT_SUGGESTIONS: true
         options: >-
           --health-cmd "curl -f http://localhost:5000/health || exit 1"
           --health-interval 30s
