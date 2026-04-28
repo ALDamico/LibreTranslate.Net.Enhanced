@@ -6,6 +6,12 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/ALDamico/LibreTranslate.Net.Enhanced/ci.yml?style=flat-square&logo=github&label=CI)](https://github.com/ALDamico/LibreTranslate.Net.Enhanced/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/ALDamico/LibreTranslate.Net.Enhanced?style=flat-square)](LICENSE)
 
+## Why this fork?
+
+[LibreTranslate.Net](https://www.nuget.org/packages/LibreTranslate.Net) is an unofficial .NET client for LibreTranslate that has been abandoned and is no longer maintained. This fork picks up where it left off, adding new features and keeping up with the LibreTranslate API.
+
+If you are migrating from `LibreTranslate.Net`, simply replace the package reference — the API is backwards compatible.
+
 ## Prerequisites
 
 You need a running [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) instance. You can use the public instance at `https://libretranslate.com` (API key required) or run your own:
@@ -28,7 +34,7 @@ dotnet add package LibreTranslate.Net.Enhanced
 
 **PackageReference**
 ```xml
-<PackageReference Include="LibreTranslate.Net.Enhanced" Version="1.6.4" />
+<PackageReference Include="LibreTranslate.Net.Enhanced" Version="1.9.5.1" />
 ```
 
 ## Usage
