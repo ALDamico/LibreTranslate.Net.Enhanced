@@ -1,19 +1,30 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using LibreTranslate.Net.Enhanced.Constants;
 using LibreTranslate.Net.Enhanced.Models;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace LibreTranslate.Net.Enhanced.Tests;
 
-public class Tests
+public class DiTests
 {
     private LibreTranslate _libreTranslate;
+    private ServiceProvider _serviceProvider;
 
     [SetUp]
     public void Setup()
     {
-        _libreTranslate = new LibreTranslate("http://localhost:5000");
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddLibreTranslate(opt => opt.Url = "http://localhost:5000");
+        _serviceProvider = serviceCollection.BuildServiceProvider();
+        _libreTranslate = _serviceProvider.GetRequiredService<LibreTranslate>();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        _serviceProvider?.Dispose();
     }
 
     [Test]
@@ -29,7 +40,6 @@ public class Tests
         });
         System.Threading.Tasks.Task.Run(() => translateAsyncTask).Wait();
         var spanishText = translateAsyncTask.Result;
-        Assert.NotNull(spanishText);
         Assert.AreEqual(spanishText, "¡Hola Mundo!");
     }
 
@@ -82,8 +92,8 @@ public class Tests
         var detectionResultList = _libreTranslate.DetectAsync(detect).GetAwaiter().GetResult();
         var detectionResult = detectionResultList.FirstOrDefault();
         Assert.NotNull(detectionResult);
-        Assert.Null(detectionResult!.Error);
-        Assert.Less(0, detectionResult!.Confidence!);
+        Assert.Null(detectionResult.Error);
+        Assert.Less(0, detectionResult.Confidence);
         Assert.AreEqual("it", detectionResult.Language);
     }
 
@@ -104,7 +114,7 @@ public class Tests
             Assert.IsNotEmpty(language.Targets);
         }
     }
-    
+
     [Test]
     public void TestSuggestion()
     {
@@ -119,7 +129,7 @@ public class Tests
         var suggestionResponse =  _libreTranslate.SuggestAsync(suggestion).GetAwaiter().GetResult();
         Assert.True(suggestionResponse);
     }
-    
+
     [Test]
     public void TestBatchTranslation()
     {

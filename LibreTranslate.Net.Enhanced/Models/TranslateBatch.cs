@@ -1,19 +1,17 @@
-﻿using LibreTranslate.Net.Enhanced.Constants;
+﻿using System.Collections.Generic;
+using LibreTranslate.Net.Enhanced.Constants;
 using LibreTranslate.Net.Enhanced.Serialization;
 using Newtonsoft.Json;
 
 namespace LibreTranslate.Net.Enhanced.Models
 {
-    /// <summary>
-    /// The model to send to the libre translate api
-    /// </summary>
-    public class Translate
+    public class TranslateBatch
     {
         /// <summary>
         /// The text to be translated
         /// </summary>
         [JsonProperty("q")]
-        public string Text { get; set; }
+        public List<string> Text { get; set; }
         /// <summary>
         /// The source of the current language text
         /// </summary>

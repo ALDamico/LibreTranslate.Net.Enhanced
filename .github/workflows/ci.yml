@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore LibreTranslate models cache
+        uses: actions/cache/restore@v4
+        with:
+          path: /tmp/lt-models
+          key: libretranslate-models-en-es-it-vi
+
+      - name: Fix lt-models permissions
+        run: |
+          mkdir -p /tmp/lt-models
+          sudo chown -R 1032:1032 /tmp/lt-models
+
+      - name: Start LibreTranslate
+        run: |
+          docker run -d \
+            -p 5000:5000 \
+            -v /tmp/lt-models:/home/libretranslate/.local \
+            -e LT_LOAD_ONLY=en,es,it,vi \
+            -e LT_SUGGESTIONS=true \
+            --name libretranslate \
+            libretranslate/libretranslate:latest
+
+      - name: Wait for LibreTranslate
+        run: |
+          echo "Waiting for LibreTranslate to be ready..."
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:5000/health | grep -q '"status":"ok"'; then
+              echo "LibreTranslate is ready!"
+              exit 0
+            fi
+            echo "Attempt $i/30 failed, waiting 20 seconds..."
+            sleep 20
+          done
+          echo "LibreTranslate failed to start, dumping logs:"
+          docker logs libretranslate
+          exit 1
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test (net8.0)
+        run: dotnet test --no-build --configuration Release --framework net8.0
+
+      - name: Test (net10.0)
+        run: dotnet test --no-build --configuration Release --framework net10.0
+
+      - name: Save LibreTranslate models cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: /tmp/lt-models
+          key: libretranslate-models-en-es-it-vi

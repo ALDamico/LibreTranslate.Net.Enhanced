@@ -39,7 +39,7 @@ namespace LibreTranslate.Net.Enhanced.Constants
 
         public override string ToString()
         {
-            return $"{_code}";
+            return _code;
         }
 
         public static readonly LanguageCode English = new LanguageCode("en");
