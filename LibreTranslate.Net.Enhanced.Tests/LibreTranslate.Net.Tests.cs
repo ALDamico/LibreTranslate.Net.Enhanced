@@ -28,6 +28,7 @@ public class Tests
         });
         System.Threading.Tasks.Task.Run(() => translateAsyncTask).Wait();
         var spanishText = translateAsyncTask.Result;
+        Assert.NotNull(spanishText);
         Assert.AreEqual(spanishText, "¡Hola Mundo!");
     }
 
@@ -80,8 +81,8 @@ public class Tests
         var detectionResultList = _libreTranslate.DetectAsync(detect).GetAwaiter().GetResult();
         var detectionResult = detectionResultList.FirstOrDefault();
         Assert.NotNull(detectionResult);
-        Assert.Null(detectionResult.Error);
-        Assert.Less(0, detectionResult.Confidence);
+        Assert.Null(detectionResult!.Error);
+        Assert.Less(0, detectionResult!.Confidence!);
         Assert.AreEqual("it", detectionResult.Language);
     }
 
