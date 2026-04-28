@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using LibreTranslate.Net.Enhanced.Constants;
 using LibreTranslate.Net.Enhanced.Models;
+using LibreTranslate.Net.Enhanced.Utils;
 using Newtonsoft.Json;
 namespace LibreTranslate.Net.Enhanced
 {
@@ -56,7 +57,7 @@ namespace LibreTranslate.Net.Enhanced
         /// Gets the server supported languages.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<SupportedLanguages>> GetSupportedLanguagesAsync()
+        public async Task<IEnumerable<SupportedLanguages>> GetSupportedLanguagesAsync() 
         {
             return JsonConvert.DeserializeObject<IEnumerable<SupportedLanguages>>(await _httpClient.GetStringAsync("/languages"));
         }
@@ -69,22 +70,13 @@ namespace LibreTranslate.Net.Enhanced
         public async Task<string> TranslateAsync(Translate translate)
         {
             translate.ApiKey = string.IsNullOrWhiteSpace(translate.ApiKey) ? _apiKey : translate.ApiKey;
-            var formUrlEncodedContent = new FormUrlEncodedContent(new Dictionary<string, string>()
-            {
-                { "q", translate.Text },
-                { "source", translate.Source.ToString() },
-                { "target", translate.Target.ToString() },
-                { "api_key", translate.ApiKey },
-                { "format", translate.Format?.ToString() }
-            });
             var response = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/translate")
             {
-                Content = formUrlEncodedContent
+                Content = RequestUtils.ToStringContent(translate),
             });
             var translatedText = JsonConvert.DeserializeObject<TranslationResponse>(await response.Content.ReadAsStringAsync());
             if (response.IsSuccessStatusCode)
             {
-                
                 return translatedText.TranslatedText;
             }
             
@@ -93,12 +85,7 @@ namespace LibreTranslate.Net.Enhanced
 
         public async Task<List<DetectResponse>> DetectAsync(Detect detect)
         {
-            var formUrlEncodedContent = new FormUrlEncodedContent(new Dictionary<string, string>()
-            {
-                { "q", detect.Text },
-                { "api_key", detect.ApiKey }
-            });
-            var response = await _httpClient.PostAsync("/detect", formUrlEncodedContent);
+            var response = await _httpClient.PostAsync("/detect", RequestUtils.ToStringContent(detect));
             var detectResponse = new List<DetectResponse>();
             if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -170,19 +157,12 @@ namespace LibreTranslate.Net.Enhanced
                     await response.Content.ReadAsStringAsync());
             }
 
-            return default;
+            return null;
         }
 
         public async Task<bool> SuggestAsync(Suggestion suggestion)
         {
-            var urlEncoded = new FormUrlEncodedContent(new Dictionary<string, string>()
-            {
-                { "q", suggestion.SourceText },
-                { "s", suggestion.TargetText },
-                { "source", suggestion.Source },
-                { "target", suggestion.Target }
-            });
-            var response = await _httpClient.PostAsync("/suggest", urlEncoded);
+            var response = await _httpClient.PostAsync("/suggest", RequestUtils.ToStringContent(suggestion));
             var result = JsonConvert.DeserializeObject<SuggestionResponse>(await response.Content.ReadAsStringAsync());
             return result.Success;
         }
